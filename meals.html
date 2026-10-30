@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meals & Shopping</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: #0f1115; color: #eee; padding: 16px; max-width: 520px; margin-inline: auto; }
+  a.back { color: #4f8cff; font-size: 14px; text-decoration: none; }
+  h1 { font-size: 22px; margin: 8px 0 2px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: #8a8f98; margin: 22px 0 8px; }
+  .sub { color: #8a8f98; font-size: 14px; margin-bottom: 14px; }
+  .row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 6px; }
+  .bar { height: 12px; background: #222733; border-radius: 6px; overflow: hidden; }
+  .fill { height: 100%; width: 0; background: #3ddc84; transition: width .3s, background .3s; }
+  .fill.over { background: #ff5c5c; }
+  .stats { font-size: 13px; color: #b5bac4; margin: 10px 0; line-height: 1.5; }
+  .btns { display: flex; gap: 8px; margin: 12px 0; }
+  .btns button, .copy { flex: 1; padding: 12px; border: 0; border-radius: 10px; background: #2a3550; color: #fff; font-size: 15px; cursor: pointer; }
+  .btns button:first-child { background: #4f8cff; }
+  .toggle { display: flex; gap: 8px; align-items: center; font-size: 13px; color: #b5bac4; margin-bottom: 4px; }
+  .meal { background: #1a1e27; border: 2px solid transparent; border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+  .meal.on { background: #16301f; border-color: #2c8a52; }
+  .mtop { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; }
+  .mcost { color: #3ddc84; font-weight: 500; font-size: 14px; }
+  .mmeta { font-size: 13px; color: #b5bac4; margin-top: 3px; }
+  .glow { font-size: 12px; color: #8a8f98; margin-top: 3px; }
+  .step { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; font-size: 14px; }
+  .step button { width: 44px; height: 38px; border: 0; border-radius: 8px; background: #2a3550; color: #fff; font-size: 20px; cursor: pointer; }
+  .item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .item .buy { flex: 1; display: flex; gap: 10px; align-items: center; padding: 11px; background: #1a1e27; border: 0; border-radius: 10px; color: inherit; font-size: 15px; text-align: left; cursor: pointer; }
+  .item .buy.got { background: #16301f; opacity: .6; text-decoration: line-through; }
+  .tick { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #4a5160; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .got .tick { background: #3ddc84; border-color: #3ddc84; color: #0f1115; }
+  .use { display: block; font-size: 11px; color: #8a8f98; }
+  .price { background: #222733; color: #fff; border: 0; border-radius: 8px; padding: 10px; font-size: 14px; min-width: 64px; cursor: pointer; }
+  .copy { width: 100%; margin-top: 10px; }
+  .foot { font-size: 12px; color: #6b7280; line-height: 1.5; margin-top: 14px; }
+  .warn { color: #ffb84d; }
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← Routine</a>
+<h1>🍽️ Meals &amp; Shopping</h1>
+<div class="sub">Pick meals, get your Morrisons list. No eggs, porridge, oats or cereal.</div>
+
+<div class="row"><span id="total"></span><span id="left"></span></div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div class="stats" id="stats"></div>
+
+<div class="btns">
+  <button onclick="preset()">✨ Suggest a week</button>
+  <button onclick="clearAll()">Clear</button>
+</div>
+<label class="toggle"><input type="checkbox" id="big" onchange="setBig(this.checked)"> Big carb portions (+40% rice, pasta, bread)</label>
+
+<div id="meals"></div>
+
+<h2>🛒 Shopping list</h2>
+<div id="shop"></div>
